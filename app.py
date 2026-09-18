@@ -86,7 +86,7 @@ USD_MONTHLY = {'pro': 12.99, 'business': 32.99, 'enterprise': 64.99}
 PAYMENT_CONFIG = {
     'paypal_email': os.environ.get('PAYPAL_EMAIL', 'andersonwiliam@gmail.com'),
     'wise': os.environ.get('WISE_ACCOUNT', 'tu_correo@wise.com'),
-    'bank_gt': os.environ.get('BANK_GT', 'Banco Industrial 000-000000-0 a tu nombre'),
+    'bank_gt': os.environ.get('BANK_GT', 'Banco Industrial Bi-1402158 a willy enriquez'),
     'whatsapp': os.environ.get('WHATSAPP', '+50254154016'),
 }
 
