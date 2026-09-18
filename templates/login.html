@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <div class="auth-wrapper">
+    <div class="card auth-card">
+      <div class="auth-title">ManagerW.S</div>
+      <div class="auth-subtitle">Plataforma Elite de Gestión de Créditos</div>
+
+      <form method="POST" action="{{ url_for('login') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label>Usuario</label>
+        <input name="username" required autocomplete="username" placeholder="Su usuario">
+        <label>Contraseña</label>
+        <input name="password" type="password" required autocomplete="current-password" placeholder="••••••••">
+        <button type="submit" class="btn full">Acceder</button>
+      </form>
+
+      <div class="divider"></div>
+
+      <h3 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; text-align: center; color: var(--text-secondary);">
+        Crear nueva cuenta
+      </h3>
+
+      <form method="POST" action="{{ url_for('register') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label>Usuario</label>
+        <input name="username" required minlength="3" maxlength="80" placeholder="Mínimo 3 caracteres">
+        <label>Contraseña</label>
+        <input name="password" type="password" required minlength="6" placeholder="Mínimo 6 caracteres">
+        <label>Moneda principal</label>
+        <select name="currency">
+          <option value="GTQ">Guatemala · Quetzal (Q)</option>
+          <option value="USD">Dólar estadounidense ($)</option>
+          <option value="HNL">Honduras · Lempira (L)</option>
+          <option value="CRC">Costa Rica · Colón (₡)</option>
+          <option value="NIO">Nicaragua · Córdoba (C$)</option>
+          <option value="MXN">México · Peso ($)</option>
+        </select>
+        <label>Código de referido (opcional)</label>
+        <input name="referral_code" placeholder="Si alguien le recomendó la app" maxlength="12" style="text-transform: uppercase;">
+        <button type="submit" class="btn secondary full">Registrarme</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

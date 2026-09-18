@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <div class="text-center" style="margin-bottom: 2.5rem;">
+    <h1 style="font-family: 'Playfair Display', serif; font-size: 1.85rem; color: var(--gold-light); margin-bottom: 0.5rem;">
+      Planes de suscripción
+    </h1>
+    <p style="color: var(--muted); font-size: 0.95rem;">
+      Precios adaptados a {{ plan.name }} · Mensual o Licencia de por vida
+    </p>
+  </div>
+
+  <h2 class="section-title">Planes Mensuales</h2>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-bottom: 3rem;">
+    {% for name, label in [('pro', 'Pro'), ('business', 'Business'), ('enterprise', 'Enterprise')] %}
+    <div class="card" style="{% if name == 'business' %}border-color: var(--border-gold); box-shadow: var(--shadow-gold);{% endif %} position: relative;">
+      {% if name == 'business' %}
+      <div style="position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+                  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+                  color: #0B0B0D; padding: 0.3rem 0.9rem; border-radius: 20px;
+                  font-size: 0.7rem; font-weight: 700;">
+        RECOMENDADO
+      </div>
+      {% endif %}
+      <h3>{{ label }}</h3>
+      <div class="kpi-value gold" style="margin: 0.75rem 0 1.25rem;">
+        {{ plan.symbol }}{{ plan[name] }}
+        <span style="font-size: 0.85rem; color: var(--muted); font-weight: 400;">/mes</span>
+      </div>
+      {% if logged %}
+        <a class="btn full" style="margin-bottom: 0.75rem;" target="_blank" rel="noopener"
+           href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business={{ pay.paypal_email }}&item_name=ManagerWS_{{ name }}_monthly&amount={{ usd_monthly[name] }}&currency_code=USD">
+          Pagar con PayPal ({{ usd_monthly[name] }} USD)
+        </a>
+        <form method="POST" action="{{ url_for('checkout') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="plan" value="{{ name }}">
+          <input type="hidden" name="plan_type" value="monthly">
+          <label>Método utilizado</label>
+          <select name="method" required>
+            <option value="paypal">PayPal</option>
+            <option value="wise">Wise</option>
+            <option value="bank">Transferencia</option>
+          </select>
+          <label>Referencia (opcional)</label>
+          <input name="reference" maxlength="100">
+          <button type="submit" class="btn secondary full">Ya pagué · Solicitar activación</button>
+        </form>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="btn full">Iniciar sesión</a>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  <h2 class="section-title">Licencia de por vida (pago único)</h2>
+  <p style="color: var(--muted); margin-bottom: 1.5rem; text-align: center;">
+    Ideal para negociantes. Pague una sola vez y use el sistema sin límite de tiempo.
+  </p>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+    {% for name, label in [('pro', 'Pro Lifetime'), ('business', 'Business Lifetime'), ('enterprise', 'Enterprise Lifetime')] %}
+    <div class="card">
+      <h3>{{ label }}</h3>
+      <div class="kpi-value gold" style="margin: 0.75rem 0 1.25rem;">
+        ${{ lifetime[name] }}
+        <span style="font-size: 0.85rem; color: var(--muted); font-weight: 400;">USD único</span>
+      </div>
+      {% if logged %}
+        <a class="btn full" style="margin-bottom: 0.75rem;" target="_blank" rel="noopener"
+           href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business={{ pay.paypal_email }}&item_name=ManagerWS_{{ name }}_lifetime&amount={{ lifetime[name] }}&currency_code=USD">
+          Pagar con PayPal ({{ lifetime[name] }} USD)
+        </a>
+        <form method="POST" action="{{ url_for('checkout') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="plan" value="{{ name }}">
+          <input type="hidden" name="plan_type" value="lifetime">
+          <label>Método utilizado</label>
+          <select name="method" required>
+            <option value="paypal">PayPal</option>
+            <option value="wise">Wise</option>
+            <option value="bank">Transferencia</option>
+          </select>
+          <label>Referencia (opcional)</label>
+          <input name="reference" maxlength="100">
+          <button type="submit" class="btn secondary full">Ya pagué · Solicitar activación</button>
+        </form>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="btn full">Iniciar sesión</a>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  <p class="text-center" style="margin-top: 2.5rem; color: var(--muted); font-size: 0.85rem;">
+    Pagos verificados manualmente · Garantía 7 días
+  </p>
+</div>
+{% endblock %}
