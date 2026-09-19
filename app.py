@@ -23,7 +23,9 @@ app.secret_key = os.environ.get('SECRET_KEY') or secrets.token_hex(32)
 app.config.update(
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE='Lax',
+    SESSION_COOKIE_SECURE=False,
     PERMANENT_SESSION_LIFETIME=3600 * 6,
+    WTF_CSRF_TIME_LIMIT=None,
     SQLALCHEMY_TRACK_MODIFICATIONS=False,
     SQLALCHEMY_ENGINE_OPTIONS={
         'pool_pre_ping': True,
