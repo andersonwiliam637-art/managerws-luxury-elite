@@ -36,7 +36,8 @@ app.config.update(
 )
 
 if os.environ.get('FLASK_ENV') == 'production':
-    app.config['SESSION_COOKIE_SECURE'] = True
+    app.config['SESSION_COOKIE_SECURE'] = True      # if os.environ.get('FLASK_ENV') == 'production':
+#     app.config['SESSION_COOKIE_SECURE'] = True
 
 csrf = CSRFProtect(app)
 storage_uri = os.environ.get('REDIS_URL', 'memory://')
