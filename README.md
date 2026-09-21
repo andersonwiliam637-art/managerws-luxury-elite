@@ -53,5 +53,3 @@ Usuario administrador por defecto: el definido en ADMIN_USERNAME (por defecto "a
 
 - Use PostgreSQL en producción (nunca SQLite con tráfico real)
 - Gunicorn con 3 workers + 2 threads está configurado por defecto
-- Los listados están limitados (200-300 registros) para evitar sobrecarga
-- Para mayor escala se recomienda agregar Redis y paginación completa
