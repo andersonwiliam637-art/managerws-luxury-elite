@@ -33,7 +33,7 @@ Usuario administrador por defecto: el definido en ADMIN_USERNAME (por defecto "a
 - `DATABASE_URL` → URL de PostgreSQL
 - `FLASK_ENV=production`
 - `ADMIN_USERNAME` y `ADMIN_PASSWORD`
-- `PAYPAL_EMAIL`, `WISE_ACCOUNT`, `BANK_GT`, `WHATSAPP`
+- `PAYPAL_EMAIL`, `WISE_ACCOUNT`, `WHATSAPP`
 - `REDIS_URL` (opcional, para rate limiting compartido)
 
 ## Despliegue en Render
